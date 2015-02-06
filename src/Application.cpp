@@ -49,6 +49,11 @@ bool Application::update()
 		return false;
 	}
 
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		return false;
+	}
+
 	return true; 
 }
 
