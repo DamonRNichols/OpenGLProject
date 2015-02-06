@@ -4,7 +4,6 @@
 #include "Gizmos.h"
 
 
-
 bool IntroToOpenGL::startup()
 {
 	if (Application::startup() == false)
@@ -26,11 +25,12 @@ bool IntroToOpenGL::startup()
 void IntroToOpenGL::shutdown()
 {
 	Gizmos::destroy();
+
+	Application::shutdown();
 }
 
 bool IntroToOpenGL::update()
 {
-	
 	if (Application::update() == false)
 	{
 		return false;

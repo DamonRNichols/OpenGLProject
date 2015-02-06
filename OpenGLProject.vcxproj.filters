@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Cameras">
+      <UniqueIdentifier>{09dd850d-cf43-4e31-9c86-0efded2ba29e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cameras">
+      <UniqueIdentifier>{19556751-ad24-4370-abbe-022dc9b20e7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -30,6 +36,12 @@
     <ClCompile Include="src\IntroToOpenGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CameraAndProjections.cpp">
+      <Filter>Source Files\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -43,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="src\IntroToOpenGL.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraAndProjections.h">
+      <Filter>Header Files\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Header Files\Cameras</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
