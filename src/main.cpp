@@ -1,9 +1,9 @@
-#include "CameraAndProjections.h"
+#include "IntroToOpenGL.h"
 
 int main()
 {
 	
-	CameraAndProjections app;
+	IntroToOpenGL app;
 
 	if (app.startup() == false)
 	{
