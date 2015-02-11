@@ -57,4 +57,8 @@ bool Application::update()
 	return true; 
 }
 
-void Application::draw(){}
+void Application::draw()
+{
+	glfwSwapBuffers(m_window);
+	glfwPollEvents();
+}

@@ -11,7 +11,7 @@ Camera::Camera()
 
 void Camera::UpdateViewProj()
 {
-	m_view_proj = m_view * m_proj;
+	m_view_proj = m_proj * m_view ;
 }
 
 void Camera::setPerspective(float FoV, float aspectRatio, float nearView, float farView)
@@ -24,6 +24,7 @@ void Camera::setLookAt(vec3 pos, vec3 target, vec3 up)
 {
 	m_view = glm::lookAt(pos, target, up);
 	m_world = glm::inverse(m_view);
+	UpdateViewProj();
 }
 
 void Camera::setPosition(vec3 pos)
