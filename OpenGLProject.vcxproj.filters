@@ -25,6 +25,12 @@
     <Filter Include="Source Files\RenderingGeometry">
       <UniqueIdentifier>{9b45d7c1-ecc3-4f25-bd9a-851c9b971a0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\IntroToOpenGL">
+      <UniqueIdentifier>{526686f3-ccf8-4112-9f04-08825d79bca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IntroToOpenGL">
+      <UniqueIdentifier>{49016126-1d92-4b30-9b7e-1dc9822625e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -39,9 +45,6 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\IntroToOpenGL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CameraAndProjections.cpp">
       <Filter>Source Files\Cameras</Filter>
     </ClCompile>
@@ -54,6 +57,9 @@
     <ClCompile Include="src\Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\IntroToOpenGL.cpp">
+      <Filter>Source Files\IntroToOpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -63,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IntroToOpenGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CameraAndProjections.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="src\Vertex.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IntroToOpenGL.h">
+      <Filter>Header Files\IntroToOpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

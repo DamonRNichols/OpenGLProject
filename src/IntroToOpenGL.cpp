@@ -23,7 +23,7 @@ struct Star
 
 	void update(float dt)
 	{
-		m_transform = glm::rotate(0.f, vec3(0, 1, 0)) * glm::translate(m_pos) * glm::rotate(dt * (100 / m_rotation), vec3(0, 1, 0));
+		m_transform = glm::rotate(0.f, vec3(0, 1, 0)) * glm::translate(m_pos) * glm::rotate(dt * (10 / m_rotation), vec3(0, 1, 0));
 
 		Gizmos::addSphere(m_transform[3].xyz, m_radius, 20, 20, m_color, &m_transform);
 	}
@@ -54,12 +54,12 @@ struct Planet
 	void update(float dt)
 	{
 		//orbit rotation = deltaTime * (comp_speed / orbit_days)
-		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
 			m_temp_dist[0] = 6.958f + 3 * m_num;
 		else
 			m_temp_dist[0] = m_distance[0];
 
-		m_transform = glm::rotate(dt * (100 / m_orbit_days), vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(dt * (100 / m_rotation), vec3(0, 1, 0));
+		m_transform = glm::rotate(dt * (10 / m_orbit_days), vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(dt * (10 / m_rotation), vec3(0, 1, 0));
 
 		Gizmos::addSphere(m_transform[3].xyz, m_radius, 20, 20, m_color,&m_transform);
 	}
@@ -106,6 +106,8 @@ bool IntroToOpenGL::startup()
 
 	Gizmos::create();
 
+	m_camera = new FlyCamera();
+
 	m_projection = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
 	m_view = glm::lookAt(vec3(0, 10, 40), vec3(0, 0, 0), vec3(0, 1, 0));
 	m_timer = 0.0f;
@@ -117,7 +119,7 @@ bool IntroToOpenGL::startup()
 void IntroToOpenGL::shutdown()
 {
 	Gizmos::destroy();
-
+	delete m_camera;
 	Application::shutdown();
 }
 
@@ -210,14 +212,14 @@ bool IntroToOpenGL::update()
 	//station
 	Gizmos::addAABBFilled(child_planet_four[3].xyz, vec3(1, 1, 1), black, &child_planet_four);
 	*/
-	
+	m_camera->update(dt);
 
 	return true;
 }
 
 void IntroToOpenGL::draw()
 {
-	Gizmos::draw(m_projection, m_view);
+	Gizmos::draw(m_camera->m_view_proj);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

@@ -2,7 +2,7 @@
 #define _INTRO_OGL_H_
 
 #include "Application.h"
-
+#include "CameraAndProjections.h"
 
 class IntroToOpenGL : public Application
 {
@@ -19,6 +19,7 @@ public:
 	float m_camera_y;
 	float m_timer;
 
+	FlyCamera *m_camera;
 };
 
 
