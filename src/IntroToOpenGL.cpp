@@ -7,31 +7,43 @@
 struct Planet
 {
 	float m_radius;
-	float m_orbit_days;
-	float m_rotation;
-	vec3 m_distance;
-	mat4 m_transform;
+	float m_orbit_days; //how many Earth days does it take to orbit the sun?
+	float m_rotation; //how many Earth days does it take to rotate its own day?
+	vec3 m_distance; //how far away from the sun's edge? (sun's radius is added in the constructor)
+	vec3 m_temp_dist; //an addition variable to hold the distance when we want to change by key press
+	mat4 m_transform; //all those variables put together
 	vec4 m_color;
+	int m_planet_num; //to keep track of placement for scaling reasons
 
-	Planet(float radius, float orbit_days, float rotation, vec3 distance_sun, vec4 color)
+	Planet(float radius, float orbit_days, float rotation, vec3 distance_sun, vec4 color, int planet_number)
 	{
 		m_radius = radius;
 		m_orbit_days = orbit_days;
 		m_rotation = rotation;
 		m_distance = distance_sun;
+		m_temp_dist = distance_sun;
 		m_color = color;
+		m_planet_num = planet_number;
 
-		m_transform = glm::rotate(1.f * m_orbit_days, vec3(0, 1, 0)) * glm::translate(m_distance) * glm::rotate(0.f * m_rotation, vec3(0, 1, 0));
+		m_transform = glm::rotate(1.f * m_orbit_days, vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(0.f * m_rotation, vec3(0, 1, 0));
 
 	}
 
 	void update(float dt)
 	{
 		//orbit rotation = deltaTime * (comp_speed / orbit_days)
-		if (m_orbit_days == 0)
-			m_transform = glm::rotate(0.f, vec3(0, 1, 0)) * glm::translate(m_distance) * glm::rotate(dt * m_rotation, vec3(0, 1, 0));
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
+			if (m_orbit_days == 0)
+				m_temp_dist = vec3(0, 0, 0);
+			else
+				m_temp_dist = vec3(6.958f + 3 * m_planet_num, 0, 0);
 		else
-			m_transform = glm::rotate(dt * (100 / m_orbit_days), vec3(0, 1, 0)) * glm::translate(m_distance) * glm::rotate(dt * (100 / m_rotation), vec3(0, 1, 0));
+			m_temp_dist = m_distance;
+
+		if (m_orbit_days == 0) //is this the sun? if so, don't change its position.
+			m_transform = glm::rotate(0.f, vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(dt * m_rotation, vec3(0, 1, 0));
+		else
+			m_transform = glm::rotate(dt * (100 / m_orbit_days), vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(dt * (100 / m_rotation), vec3(0, 1, 0));
 
 		Gizmos::addSphere(m_transform[3].xyz, m_radius, 20, 20, m_color,&m_transform);
 	}
@@ -67,6 +79,7 @@ struct Moon
 
 
 
+
 bool IntroToOpenGL::startup()
 {
 	if (Application::startup() == false)
@@ -80,7 +93,7 @@ bool IntroToOpenGL::startup()
 	Gizmos::create();
 
 	m_projection = glm::perspective(glm::radians(60.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
-	m_view = glm::lookAt(vec3(30, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
+	m_view = glm::lookAt(vec3(0, 10, 40), vec3(0, 0, 0), vec3(0, 1, 0));
 	m_timer = 0.0f;
 
 	
@@ -134,17 +147,17 @@ bool IntroToOpenGL::update()
 
 	float suns_radius = 6.958f;
 
-	Planet Sun(suns_radius, 0.f, 25.05f, vec3(0, 0, 0), vec4(1, 1, 0, 1));
+	Planet Sun(suns_radius, 0.f, 25.05f, vec3(0, 0, 0), vec4(1, 1, 0, 1), 0);
 
-	Planet Mercury(0.024397f, 87.969f, 58.646f, vec3(suns_radius + 0.58f, 0, 0), vec4(1));
-	Planet Venus(0.060518f, 224.701f, -243.0185f, vec3(suns_radius + 1.08f, 0, 0), vec4(1, 0.5f, 0, 1));
-	Planet Earth(0.06371f, 365.256f, 1.f, vec3(suns_radius + 1495.978f, 0, 0), vec4(0, 0, 1, 1));
-	Planet Mars(0.033962f, 686.971f, 1.025957f, vec3(suns_radius + 2279.391f, 0, 0), vec4(1,0,0,1));
+	Planet Mercury(0.024397f, 87.969f, 58.646f, vec3(suns_radius + 0.58f, 0, 0), vec4(1), 1);
+	Planet Venus(0.060518f, 224.701f, -243.0185f, vec3(suns_radius + 1.08f, 0, 0), vec4(1, 0.5f, 0, 1), 2);
+	Planet Earth(0.06371f, 365.256f, 1.f, vec3(suns_radius + 1495.978f, 0, 0), vec4(0, 0, 1, 1), 3);
+	Planet Mars(0.033962f, 686.971f, 1.025957f, vec3(suns_radius + 2279.391f, 0, 0), vec4(1,0,0,1), 4);
 
-	Planet Jupiter(0.71492f, 4332.59f, 0.413541f, vec3(suns_radius + 7785.472f, 0, 0), vec4(1, 0.5f, 0.5f, 1));
-	Planet Saturn(0.60268f, 10759.22f, 0.440416f, vec3(suns_radius + 14334.49f, 0, 0), vec4(0.5f, 0.2f, 0.1f, 1));
-	Planet Uranus(0.25559f, 30687.15f, 0.71833f, vec3(suns_radius + 28706.71f, 0, 0), vec4(0.1f, 0.1f, 1, 1));
-	Planet Neptune(0.24764f, 60190.03f, 0.6713f, vec3(suns_radius + 44985.42f, 0, 0), vec4(0.1f, 0.1f, 1, 1));
+	Planet Jupiter(0.71492f, 4332.59f, 0.413541f, vec3(suns_radius + 7785.472f, 0, 0), vec4(1, 0.5f, 0.5f, 1), 5);
+	Planet Saturn(0.60268f, 10759.22f, 0.440416f, vec3(suns_radius + 14334.49f, 0, 0), vec4(0.5f, 0.2f, 0.1f, 1), 6);
+	Planet Uranus(0.25559f, 30687.15f, 0.71833f, vec3(suns_radius + 28706.71f, 0, 0), vec4(0.1f, 0.1f, 1, 1), 7);
+	Planet Neptune(0.24764f, 60190.03f, 0.6713f, vec3(suns_radius + 44985.42f, 0, 0), vec4(0.1f, 0.1f, 1, 1), 8);
 
 	Sun.update(m_timer);
 
