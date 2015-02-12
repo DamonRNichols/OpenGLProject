@@ -6,6 +6,7 @@
 #include "Gizmos.h"
 
 
+
 bool RenderingGeometry::startup()
 {
 	if (Application::startup() == false)
@@ -13,7 +14,6 @@ bool RenderingGeometry::startup()
 		return false;
 	}
 
-	generateShader();
 	genernateGrid(10, 10);
 
 	Gizmos::create();
@@ -147,71 +147,3 @@ void RenderingGeometry::genernateGrid(unsigned int rows, unsigned int cols)
 
 }
 
-void RenderingGeometry::generateShader()
-{
-	const char* vs_source = "#version 410\n"
-		"layout(location=0) in vec4 position;\n"
-		"layout(location=1) in vec4 color;\n"
-		"out vec4 out_color;\n"
-		"uniform mat4 projection_view;\n"
-
-		"uniform float time;\n"
-		"uniform float heightScale;\n"
-
-		"void main()\n"
-		"{\n"
-		"	vec4 P = position;\n"
-		"	P.y += sin( time + position.x ) + cos( time + position.z );\n"
-		//"	out_color = color;\n"
-		//"out_color.x = color.x + sin(time + position.x) + sin( time + position.z );\n"
-		//"out_color.y = color.y + cos(time + position.x) + cos( time + position.z );\n"
-		//"out_color.z = color.z + tan(time + position.x) + tan( time + position.z );\n"
-		"out_color.x = P.y;\n"
-		"out_color.y = P.y;\n"
-		"out_color.z = 0;\n"
-		"out_color.w = color.w;\n"
-		"	gl_Position = projection_view * P;\n"
-		"}";
-
-	const char* fs_source = "#version 410\n"
-		"in vec4 out_color;\n"
-		"out vec4 frag_color;\n"
-		"void main()\n"
-		"{\n"
-		"	frag_color = out_color;\n"
-		"}\n";
-
-	unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	glShaderSource(vertex_shader, 1, &vs_source, 0);
-	glCompileShader(vertex_shader);
-
-	glShaderSource(fragment_shader, 1, &fs_source, 0);
-	glCompileShader(fragment_shader);
-
-	m_programID = glCreateProgram();
-	glAttachShader(m_programID, vertex_shader);
-	glAttachShader(m_programID, fragment_shader);
-	glLinkProgram(m_programID);
-
-
-	//ERROR CHECKING
-	int success = GL_FALSE;
-	glGetProgramiv(m_programID, GL_LINK_STATUS, &success);
-
-	if (success == GL_FALSE)
-	{
-		int log_length = 0;
-		glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &log_length);
-
-		char* log = new char[log_length];
-		glGetProgramInfoLog(m_programID, log_length, 0, log);
-		printf("Error: Failed to link shader program!\n");
-		printf("%s\n", log);
-		delete[] log;
-	}
-
-	glDeleteShader(fragment_shader);
-	glDeleteShader(vertex_shader);
-}

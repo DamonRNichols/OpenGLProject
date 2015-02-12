@@ -71,23 +71,35 @@ struct Moon
 	float m_orbit_days;
 	float m_rotation;
 	vec3 m_distance;
+	vec3 m_temp_dist;
 	mat4 m_transform;
+	mat4 m_origin_trans; //what are the needed transforms from the planet
 	vec4 m_color;
 	Planet* m_home_planet;
 
 	Moon(Planet planet, float orbit_days, float rotation, float radius, vec3 distance_sun, vec4 color)
 	{
+		*m_home_planet = planet;
 		m_radius = radius;
 		m_orbit_days = orbit_days;
 		m_rotation = rotation;
 		m_distance = distance_sun;
-
+		m_temp_dist = distance_sun;
 		m_color = color;
+
+		//m_origin_trans = m_home_planet->m_orbit_days *
 	}
 
 	void update(float dt)
 	{
+		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_SPACE) == GLFW_PRESS)
+			m_temp_dist[0] = 6.958f + 3 * m_home_planet->m_num;
+		else
+			m_temp_dist[0] = m_distance[0];
 
+		m_transform = glm::rotate(dt * (10 / m_orbit_days), vec3(0, 1, 0)) * glm::translate(m_temp_dist) * glm::rotate(dt * (10 / m_rotation), vec3(0, 1, 0));
+
+		Gizmos::addSphere(m_transform[3].xyz, m_radius, 20, 20, m_color, &m_transform);
 	}
 };
 
@@ -113,7 +125,7 @@ bool IntroToOpenGL::startup()
 	m_timer = 0.0f;
 
 	
-
+	return true;
 }
 
 void IntroToOpenGL::shutdown()

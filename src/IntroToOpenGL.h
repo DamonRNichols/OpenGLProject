@@ -15,8 +15,6 @@ public:
 
 	mat4 m_projection;
 	mat4 m_view;
-	float m_camera_x;
-	float m_camera_y;
 	float m_timer;
 
 	FlyCamera *m_camera;

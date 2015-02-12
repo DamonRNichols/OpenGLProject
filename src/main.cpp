@@ -1,9 +1,9 @@
-#include "IntroToOpenGL.h"
+#include "Texturing.h"
 
 int main()
 {
 	
-	IntroToOpenGL app;
+	Texturing app;
 
 	if (app.startup() == false)
 	{
@@ -23,6 +23,19 @@ int main()
 /*
 
 USE THIS FOR ALL FUTURE CLASS BUILDING
+
+class _?????_ : public Application
+}
+public:
+bool startup();
+void shutdown();
+bool update();
+void draw();
+
+FlyCamera m_camera;
+};
+
+
 
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"

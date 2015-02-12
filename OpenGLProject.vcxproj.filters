@@ -25,11 +25,14 @@
     <Filter Include="Source Files\RenderingGeometry">
       <UniqueIdentifier>{9b45d7c1-ecc3-4f25-bd9a-851c9b971a0d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\IntroToOpenGL">
-      <UniqueIdentifier>{526686f3-ccf8-4112-9f04-08825d79bca5}</UniqueIdentifier>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{4a485d9c-ffdf-4b9b-824f-bde136b7eeab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\IntroToOpenGL">
-      <UniqueIdentifier>{49016126-1d92-4b30-9b7e-1dc9822625e5}</UniqueIdentifier>
+    <Filter Include="Header Files\Texturing">
+      <UniqueIdentifier>{ae7d38b1-f70a-4d48-8751-fceb5d8ed328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Texturing">
+      <UniqueIdentifier>{51ee3d7c-0759-4473-bc4e-86260400eb2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +48,9 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\IntroToOpenGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CameraAndProjections.cpp">
       <Filter>Source Files\Cameras</Filter>
     </ClCompile>
@@ -57,8 +63,8 @@
     <ClCompile Include="src\Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\IntroToOpenGL.cpp">
-      <Filter>Source Files\IntroToOpenGL</Filter>
+    <ClCompile Include="src\Texturing.cpp">
+      <Filter>Source Files\Texturing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IntroToOpenGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CameraAndProjections.h">
@@ -86,8 +95,28 @@
     <ClInclude Include="src\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\IntroToOpenGL.h">
-      <Filter>Header Files\IntroToOpenGL</Filter>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texturing.h">
+      <Filter>Header Files\Texturing</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\frag_shader.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\vert_shader.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\textured_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\textured_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

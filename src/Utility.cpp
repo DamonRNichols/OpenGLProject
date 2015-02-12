@@ -1,4 +1,4 @@
-
+#include "Utility.h"
 #include <cstdio>
 #include "gl_core_4_4.h"
 
@@ -38,10 +38,10 @@ bool LoadShaders(char* vertex_filename, char* fragment_filename, GLuint* result)
 		unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 		unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		glShaderSource(vertex_shader, 1, &vs_source, 0);
+		glShaderSource(vertex_shader, 1, &vs_source, &vf_length);
 		glCompileShader(vertex_shader);
 
-		glShaderSource(fragment_shader, 1, &fs_source, 0);
+		glShaderSource(fragment_shader, 1, &fs_source, &ff_length);
 		glCompileShader(fragment_shader);
 
 		*result = glCreateProgram();

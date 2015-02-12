@@ -15,7 +15,6 @@ public:
 
 	void genernateGrid(unsigned int rows, unsigned int cols);
 
-	void generateShader();
 	unsigned int m_programID;
 	unsigned int m_index_count;
 
