@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Lighting">
       <UniqueIdentifier>{9fbce030-a2f9-41c6-89ea-55f99386f844}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AdvancedTextures">
+      <UniqueIdentifier>{b60cc579-bb1b-450f-8375-40e0976c496f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AdvancedTextures">
+      <UniqueIdentifier>{d6e65c8d-7dfc-4f43-9971-ee623a462d05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="src\tiny_obj_loader.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AdvancedTextures.cpp">
+      <Filter>Source Files\AdvancedTextures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +131,9 @@
     <ClInclude Include="src\tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\AdvancedTextures.h">
+      <Filter>Header Files\AdvancedTextures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -140,6 +152,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\lighting_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\normal_mapped_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\normal_mapped_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

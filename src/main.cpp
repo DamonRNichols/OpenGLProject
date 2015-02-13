@@ -1,9 +1,9 @@
-#include "Lighting.h"
+#include "AdvancedTextures.h"
 
 int main()
 {
 	
-	Lighting app;
+	AdvancedTextures app;
 
 	if (app.startup() == false)
 	{

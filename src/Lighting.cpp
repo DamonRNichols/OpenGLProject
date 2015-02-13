@@ -24,7 +24,7 @@ bool Lighting::startup()
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
-	std::string err = tinyobj::LoadObj(shapes, materials, "./models/bunny.obj");
+	std::string err = tinyobj::LoadObj(shapes, materials, "./models/dragon.obj");
 
 	if (err.size() != 0)
 	{
@@ -35,8 +35,8 @@ bool Lighting::startup()
 
 	m_ambient_light = vec3(0.1f);
 	m_light_dir = vec3(0, -1, 0);
-	m_light_color = vec3(0.6f, 0, 0);
-	m_material_color = vec3(1);
+	m_light_color = vec3(1, 1, 1);
+	m_material_color = vec3(1,1,1);
 	m_specular_power = 15;
 
 	return true;
