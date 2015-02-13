@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Texturing">
       <UniqueIdentifier>{51ee3d7c-0759-4473-bc4e-86260400eb2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Lighting">
+      <UniqueIdentifier>{97d9c580-ecc5-498c-ae29-7118ca1b089d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting">
+      <UniqueIdentifier>{9fbce030-a2f9-41c6-89ea-55f99386f844}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -65,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="src\Texturing.cpp">
       <Filter>Source Files\Texturing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lighting.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiny_obj_loader.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +116,12 @@
     <ClInclude Include="src\Texturing.h">
       <Filter>Header Files\Texturing</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lighting.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -116,6 +134,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\textured_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\lighting_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\lighting_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "glm_header.h"
 
+#include "Utility.h"
 #include "Gizmos.h"
 
 

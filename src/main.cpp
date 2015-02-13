@@ -1,9 +1,9 @@
-#include "Texturing.h"
+#include "Lighting.h"
 
 int main()
 {
 	
-	Texturing app;
+	Lighting app;
 
 	if (app.startup() == false)
 	{
@@ -25,7 +25,7 @@ int main()
 USE THIS FOR ALL FUTURE CLASS BUILDING
 
 class _?????_ : public Application
-}
+{
 public:
 bool startup();
 void shutdown();
