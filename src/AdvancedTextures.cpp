@@ -7,6 +7,39 @@
 #include "stb_image.h"
 #include "Utility.h"
 
+void OnMouseButton(GLFWwindow* window, int button, int pressed, int mod_keys)
+{
+	TwEventMouseButtonGLFW(button, pressed);
+}
+
+void OnMousePosition(GLFWwindow* window, double x, double y)
+{
+	TwEventMousePosGLFW((int)x, (int)y);
+}
+
+void OnMouseScroll(GLFWwindow* window, double x, double y)
+{
+	TwEventMouseWheelGLFW((int)y);
+}
+
+void OnKey(GLFWwindow* window, int key, int scancode, int pressed, int mod_keys)
+{
+	TwEventKeyGLFW(key, pressed);
+}
+
+void OnChar(GLFWwindow* window, unsigned int c)
+{
+	TwEventCharGLFW(c, GLFW_PRESS);
+}
+
+void OnWindowResize(GLFWwindow* window, int width, int height)
+{
+	TwWindowSize(width, height);
+	glViewport(0, 0, width, height);
+}
+
+
+
 bool AdvancedTextures::startup()
 {
 	if (Application::startup() == false)
@@ -14,7 +47,19 @@ bool AdvancedTextures::startup()
 		return false;
 	}
 
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	TwInit(TW_OPENGL_CORE, nullptr);
+	TwWindowSize(1280, 720);
+
+	glfwSetMouseButtonCallback(m_window, OnMouseButton);
+	glfwSetCursorPosCallback(m_window, OnMousePosition);
+	glfwSetScrollCallback(m_window, OnMouseScroll);
+	glfwSetKeyCallback(m_window, OnKey);
+	glfwSetCharCallback(m_window, OnChar);
+	glfwSetWindowSizeCallback(m_window, OnWindowResize);
+
+	m_background_color = vec4(0.3f, 0.3f, 0.3f, 1.0f);
+
+	
 	glEnable(GL_DEPTH_TEST);
 	Gizmos::create();
 
@@ -30,12 +75,19 @@ bool AdvancedTextures::startup()
 	m_light_color = vec3(1, 1, 1);
 	m_specular_power = 15;
 
+	m_bar = TwNewBar("My New Bar");
+
+	TwAddVarRW(m_bar, "clear Colour", TW_TYPE_COLOR4F, &m_background_color, "");
+
 	return true;
 }
 
 void AdvancedTextures::shutdown()
 {
 	Gizmos::destroy();
+
+	TwDeleteAllBars();
+	TwTerminate();
 
 	Application::shutdown();
 }
@@ -46,6 +98,8 @@ bool AdvancedTextures::update()
 	{
 		return false;
 	}
+
+	glClearColor(m_background_color.x, m_background_color.y, m_background_color.z, m_background_color.w);
 
 	float delta = (float)glfwGetTime();
 	glfwSetTime(0.0f);
@@ -109,6 +163,7 @@ void AdvancedTextures::draw()
 	glDrawElements(GL_TRIANGLES, m_quad.m_index_count, GL_UNSIGNED_INT, 0);
 
 	Gizmos::draw(m_camera->m_view_proj);
+	TwDraw();
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
