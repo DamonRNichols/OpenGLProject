@@ -4,7 +4,6 @@
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
 
-#include "Vertex.h"
 #include "Utility.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -22,7 +21,7 @@ bool Texturing::startup()
 	Gizmos::create();
 
 	loadTexture("./textures/crate.png");
-	generateQuad(5.0f);
+	generateSphere(5.0f,20,20);
 	LoadShaders("./shaders/textured_vertex.glsl", "./shaders/textured_fragment.glsl", &m_programID);
 
 	m_camera = new FlyCamera();
@@ -79,7 +78,7 @@ void Texturing::draw()
 	glUniform1i(diffuse_location, 0);
 
 	glBindVertexArray(m_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 60, GL_UNSIGNED_INT, 0);
 
 	Gizmos::draw(m_camera->m_view_proj);
 	glfwSwapBuffers(m_window);
@@ -146,4 +145,56 @@ void Texturing::generateQuad(float size)
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+OpenGLData Texturing::generateSphere(float radius, int rows, int cols)
+{
+	OpenGLData result = {};
+
+	VertexTexCoord * verts = new VertexTexCoord[cols + 1];
+
+	verts[0].position = vec4(0,0,0,1);
+	verts[0].tex_coord = vec2(0.5, 0.5);
+
+	for (int i = 0; i < cols; ++i)
+	{
+		verts[i + 1].position = vec4(sinf(i / (float)cols * 2 * 3.14159), 0, cosf(i / (float)cols * 2 * 3.14159), 1);
+
+		verts[i + 1].tex_coord = vec2(verts[i + 1].position.x + 0.5f,verts[i + 1].position.z + 0.5f);
+	}
+
+	unsigned int * indices = new unsigned int[3 * cols];
+	for (int i = 0; i < cols; ++i)
+	{
+		indices[i * 3 + 0] = 0;
+		indices[i * 3 + 1] = i + 1;
+		indices[i * 3 + 2] = (i + 2);
+	}
+	indices[3 * cols - 1] = 1;
+
+	glGenVertexArrays(1, &m_VAO);
+
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_IBO);
+
+	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexTexCoord)* (cols + 1), verts, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)* (cols *3), indices, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(VertexTexCoord), 0);
+
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexTexCoord), (void*)sizeof(vec4));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	return result;
 }

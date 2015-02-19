@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "Camera.h"
 
+#include "Vertex.h"
+
 class Texturing : public Application
 {
 public:
@@ -14,6 +16,7 @@ public:
 
 	void loadTexture(const char * filename);
 	void generateQuad(float size);
+	OpenGLData generateSphere(float radius, int rows, int cols);
 	unsigned int m_programID;
 
 	FlyCamera *m_camera;
@@ -26,6 +29,9 @@ public:
 	unsigned int m_VAO;
 	unsigned int m_VBO;
 	unsigned int m_IBO;
+
+
+	OpenGLData m_sphere;
 };
 
 

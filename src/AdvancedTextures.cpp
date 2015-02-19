@@ -77,7 +77,13 @@ bool AdvancedTextures::startup()
 
 	m_bar = TwNewBar("My New Bar");
 
-	TwAddVarRW(m_bar, "clear Colour", TW_TYPE_COLOR4F, &m_background_color, "");
+	TwAddVarRW(m_bar, "clear colour", TW_TYPE_COLOR4F, &m_background_color, "");
+	TwAddVarRW(m_bar, "light direction", TW_TYPE_DIR3F, &m_light_dir, "group=light");
+	TwAddVarRW(m_bar, "light colour", TW_TYPE_COLOR3F, &m_light_color, "group=light");
+	TwAddVarRW(m_bar, "spec power", TW_TYPE_FLOAT, &m_specular_power, "group=light min=0.1 max=100 step=0.05");
+	TwAddVarRW(m_bar, "draw gizmos", TW_TYPE_BOOL8, &m_draw_gizmos, "");
+
+	TwAddVarRO(m_bar, "FPS", TW_TYPE_FLOAT, &m_fps, "");
 
 	return true;
 }
@@ -105,17 +111,23 @@ bool AdvancedTextures::update()
 	glfwSetTime(0.0f);
 	Gizmos::clear();
 
+	m_fps = 1 / delta;
+
 	vec4 white(1);
 	vec4 black(0, 0, 0, 1);
 
-	for (int i = 0; i <= 20; ++i)
+	if (m_draw_gizmos)
 	{
-		Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10), i == 10 ? white : black);
-		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
+		for (int i = 0; i <= 20; ++i)
+		{
+			Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10), i == 10 ? white : black);
+			Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
+		}
 	}
+	
 
 
-	m_light_dir = (glm::rotate(delta, vec3(0, 1, 0)) * vec4(m_light_dir, 0)).xyz;
+	//m_light_dir = (glm::rotate(delta, vec3(0, 1, 0)) * vec4(m_light_dir, 0)).xyz;
 
 	m_camera->update(delta);
 
@@ -174,7 +186,7 @@ void AdvancedTextures::loadTexture()
 
 	unsigned char* data;
 
-	data = stbi_load("./textures/rock_diffuse.tga", &width, &height, &channels, STBI_default);
+	data = stbi_load("./textures/four_diffuse.tga", &width, &height, &channels, STBI_default);
 
 	glGenTextures(1, &m_diffuse_texture);
 	glBindTexture(GL_TEXTURE_2D, m_diffuse_texture);
@@ -187,7 +199,7 @@ void AdvancedTextures::loadTexture()
 	stbi_image_free(data);
 
 
-	data = stbi_load("./textures/rock_normal.tga", &width, &height, &channels, STBI_default);
+	data = stbi_load("./textures/four_normal.tga", &width, &height, &channels, STBI_default);
 
 	glGenTextures(1, &m_normal_texture);
 	glBindTexture(GL_TEXTURE_2D, m_normal_texture);
@@ -200,7 +212,7 @@ void AdvancedTextures::loadTexture()
 	stbi_image_free(data);
 
 
-	data = stbi_load("./textures/rock_specular.tga", &width, &height, &channels, STBI_default);
+	data = stbi_load("./textures/four_specular.tga", &width, &height, &channels, STBI_default);
 
 	glGenTextures(1, &m_specular_texture);
 	glBindTexture(GL_TEXTURE_2D, m_specular_texture);

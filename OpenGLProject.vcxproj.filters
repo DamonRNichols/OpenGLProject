@@ -46,6 +46,12 @@
     <Filter Include="Source Files\AdvancedTextures">
       <UniqueIdentifier>{d6e65c8d-7dfc-4f43-9971-ee623a462d05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Quaternions">
+      <UniqueIdentifier>{b800bff1-5740-42d8-85af-b9d80306961f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Quaternions">
+      <UniqueIdentifier>{a9d293d4-747a-4952-aa67-42d6dfcab1ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="src\AdvancedTextures.cpp">
       <Filter>Source Files\AdvancedTextures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quaternions.cpp">
+      <Filter>Source Files\Quaternions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="src\AdvancedTextures.h">
       <Filter>Header Files\AdvancedTextures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quaternions.h">
+      <Filter>Header Files\Quaternions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

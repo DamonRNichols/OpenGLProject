@@ -31,10 +31,11 @@ public:
 	vec3 m_light_dir;
 	vec3 m_light_color;
 	vec3 m_ambient_light;
-
 	vec4 m_background_color;
-
 	float m_specular_power;
+
+	bool m_draw_gizmos;
+	float m_fps;
 
 	FlyCamera *m_camera;
 	mat4 m_projection;

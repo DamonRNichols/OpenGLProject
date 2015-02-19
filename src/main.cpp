@@ -1,9 +1,8 @@
-#include "AdvancedTextures.h"
+#include "Quaternions.h"
 
 int main()
 {
-	
-	AdvancedTextures app;
+	Quaternions app;
 
 	if (app.startup() == false)
 	{
