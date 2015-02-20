@@ -1,8 +1,8 @@
-#include "Quaternions.h"
+#include "Animation.h"
 
 int main()
 {
-	Quaternions app;
+	Animation app;
 
 	if (app.startup() == false)
 	{

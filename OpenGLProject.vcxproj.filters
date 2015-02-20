@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Quaternions">
       <UniqueIdentifier>{a9d293d4-747a-4952-aa67-42d6dfcab1ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{6e8f1dcd-c4b8-465d-adca-821a0a4e8fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animation">
+      <UniqueIdentifier>{31294364-e3fe-47d2-9624-d4bc82969439}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -95,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="src\Quaternions.cpp">
       <Filter>Source Files\Quaternions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
+      <Filter>Source Files\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +155,9 @@
     <ClInclude Include="src\Quaternions.h">
       <Filter>Header Files\Quaternions</Filter>
     </ClInclude>
+    <ClInclude Include="src\Animation.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -170,6 +182,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\normal_mapped_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\skinned_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\skinned_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
