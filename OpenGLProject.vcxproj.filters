@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Animation">
       <UniqueIdentifier>{31294364-e3fe-47d2-9624-d4bc82969439}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{38bbebb7-5924-4aab-97bc-cfacd1d0cc31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{2e50feaf-701b-48c1-be9b-c61c7c30aebd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="src\Animation.cpp">
       <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particles.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Emitter.cpp">
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +170,12 @@
     <ClInclude Include="src\Animation.h">
       <Filter>Header Files\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="src\Particles.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Emitter.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -188,6 +206,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\skinned_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\particle_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\particle_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

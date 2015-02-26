@@ -154,15 +154,15 @@ OpenGLData Texturing::generateSphere(float radius, int rows, int cols)
 	VertexTexCoord * verts = new VertexTexCoord[cols + 1];
 
 	verts[0].position = vec4(0,0,0,1);
-	verts[0].tex_coord = vec2(0.5, 0.5);
+	verts[0].tex_coord = vec2(0.5f, 0.5f);
 
 	for (int i = 0; i < cols; ++i)
 	{
-		verts[i + 1].position = vec4(sinf(i / (float)cols * 2 * 3.14159), 0, cosf(i / (float)cols * 2 * 3.14159), 1);
+		verts[i + 1].position = vec4(sinf(i / (float)cols * 2 * 3.14159f), 0, cosf(i / (float)cols * 2 * 3.14159f), 1);
 
 		verts[i + 1].tex_coord = vec2(verts[i + 1].position.x + 0.5f,verts[i + 1].position.z + 0.5f);
 	}
-
+	Gizmos::addSphere();
 	unsigned int * indices = new unsigned int[3 * cols];
 	for (int i = 0; i < cols; ++i)
 	{
