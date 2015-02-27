@@ -22,7 +22,7 @@ bool Texturing::startup()
 
 	loadTexture("./textures/crate.png");
 	generateSphere(5.0f,20,20);
-	LoadShaders("./shaders/textured_vertex.glsl", "./shaders/textured_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/textured_vertex.glsl",0, "./shaders/textured_fragment.glsl", &m_programID);
 
 	m_camera = new FlyCamera();
 
@@ -162,7 +162,7 @@ OpenGLData Texturing::generateSphere(float radius, int rows, int cols)
 
 		verts[i + 1].tex_coord = vec2(verts[i + 1].position.x + 0.5f,verts[i + 1].position.z + 0.5f);
 	}
-	Gizmos::addSphere();
+	//Gizmos::addSphere();
 	unsigned int * indices = new unsigned int[3 * cols];
 	for (int i = 0; i < cols; ++i)
 	{

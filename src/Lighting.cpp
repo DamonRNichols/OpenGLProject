@@ -19,7 +19,7 @@ bool Lighting::startup()
 
 	m_camera = new FlyCamera();
 
-	LoadShaders("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/lighting_vertex.glsl",0, "./shaders/lighting_fragment.glsl", &m_programID);
 
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -190,5 +190,5 @@ void Lighting::reloadShader()
 {
 	glDeleteProgram(m_programID);
 
-	LoadShaders("./shaders/lighting_vertex.glsl", "./shaders/lighting_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/lighting_vertex.glsl",0, "./shaders/lighting_fragment.glsl", &m_programID);
 }

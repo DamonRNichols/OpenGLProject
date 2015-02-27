@@ -1,46 +1,11 @@
 #include "GPUParticles.h"
 
-int main()
-{
-	GPUParticles app;
-
-	if (app.startup() == false)
-	{
-		return -1;
-	}
-
-	while (app.update() == true)
-	{
-		app.draw();
-	}
-
-	app.shutdown();
-	
-	return 0;
-}
-
-/*
-
-USE THIS FOR ALL FUTURE CLASS BUILDING
-
-class _?????_ : public Application
-{
-public:
-bool startup();
-void shutdown();
-bool update();
-void draw();
-
-FlyCamera m_camera;
-};
-
-
 
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
 
-bool _?????_::startup()
+bool GPUParticles::startup()
 {
 	if (Application::startup() == false)
 	{
@@ -53,17 +18,20 @@ bool _?????_::startup()
 
 	m_camera = new FlyCamera();
 
+	m_emitter.Init(1000000, vec4(0, 0, 0, 0), 0, 0.1f, 5.0f, 2, 10, 1.0f, 0.1f, vec4(1, 0, 0, 1), vec4(1, 1, 0, 1));
+
+	m_time = 0.0f;
 	return true;
 }
 
-void _?????_::shutdown()
+void GPUParticles::shutdown()
 {
 	Gizmos::destroy();
 
 	Application::shutdown();
 }
 
-bool _?????_::update()
+bool GPUParticles::update()
 {
 	if (Application::update() == false)
 	{
@@ -74,7 +42,7 @@ bool _?????_::update()
 
 	float dt = (float)glfwGetTime();
 	glfwSetTime(0.0f);
-	m_timer += dt;
+	m_time += dt;
 
 	m_camera->update(dt);
 
@@ -83,20 +51,22 @@ bool _?????_::update()
 
 	for (int i = 0; i <= 20; ++i)
 	{
-	Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10), i == 10 ? white : black);
-	Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
+		Gizmos::addLine(vec3(-10 + i, 0, -10), vec3(-10 + i, 0, 10), i == 10 ? white : black);
+		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
 	}
 
 
 	return true;
 }
 
-void _?????_::draw()
+void GPUParticles::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
 	glUseProgram(m_programID);
+
+	m_emitter.Draw(m_time, m_camera->m_world, m_camera->m_view_proj);
 
 	int view_proj_uniform = glGetUniformLocation(m_programID, "projection_view");
 	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->m_view_proj);
@@ -104,4 +74,3 @@ void _?????_::draw()
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
-*/

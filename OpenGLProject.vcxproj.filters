@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Particles">
       <UniqueIdentifier>{2e50feaf-701b-48c1-be9b-c61c7c30aebd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GPUParticles">
+      <UniqueIdentifier>{fb629f62-758a-49fb-8b13-763a8b656f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GPUParticles">
+      <UniqueIdentifier>{1e968b3d-1cc7-4bf8-b66c-9d051bece150}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -116,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="src\Emitter.cpp">
       <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GPUParticles.cpp">
+      <Filter>Source Files\GPUParticles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GPUEmitter.cpp">
+      <Filter>Source Files\GPUParticles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +188,12 @@
     <ClInclude Include="src\Emitter.h">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="src\GPUParticles.h">
+      <Filter>Header Files\GPUParticles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GPUEmitter.h">
+      <Filter>Header Files\GPUParticles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -212,6 +230,18 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\particle_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\gpu_particle_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\gpu_particle_geom.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\gpu_particle_frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\particle_update_vert.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

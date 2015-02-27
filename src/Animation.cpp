@@ -24,7 +24,7 @@ bool Animation::startup()
 	m_file->initialiseOpenGLTextures();
 
 	generateGLMeshes(m_file);
-	LoadShaders("./shaders/skinned_vertex.glsl", "./shaders/skinned_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/skinned_vertex.glsl",0, "./shaders/skinned_fragment.glsl", &m_programID);
 
 	m_timer = 0.0f;
 

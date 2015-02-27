@@ -19,7 +19,7 @@ bool Particles::startup()
 
 	m_camera = new FlyCamera();
 
-	LoadShaders("./shaders/particle_vertex.glsl", "./shaders/particle_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/particle_vertex.glsl",0, "./shaders/particle_fragment.glsl", &m_programID);
 
 	m_emitter.Init(1000, vec3(0, 0, 0), 500, 1, 4, 0.5f, 3.0f, 0.1f, 0.075f, vec4(0, 0, 1, 1), vec4(1, 1, 0, 0.5f));
 
