@@ -18,7 +18,7 @@ bool GPUParticles::startup()
 
 	m_camera = new FlyCamera();
 
-	m_emitter.Init(1000000, vec4(0, 0, 0, 0), 0, 0.1f, 5.0f, 2, 10, 1.0f, 0.1f, vec4(1, 0, 0, 1), vec4(1, 1, 0, 1));
+	m_emitter.Init(10000000, vec4(0, 0, 0, 0), 0, 0.1f, 5.0f, 2, 10, 1.0f, 0.1f, vec4(1, 1, 0, 1), vec4(0, 0, 1, 1));
 
 	m_time = 0.0f;
 	return true;
@@ -64,12 +64,8 @@ void GPUParticles::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
-	glUseProgram(m_programID);
-
+	
 	m_emitter.Draw(m_time, m_camera->m_world, m_camera->m_view_proj);
-
-	int view_proj_uniform = glGetUniformLocation(m_programID, "projection_view");
-	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->m_view_proj);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

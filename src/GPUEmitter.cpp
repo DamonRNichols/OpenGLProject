@@ -70,8 +70,8 @@ void GPUPointEmitter::CreateBuffers()
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), 0);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), (void*)(12));
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), (void*)(24));
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), (void*)(28));
+		glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), (void*)(24));
+		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(GPUParticle), (void*)(28));
 
 	}
 
@@ -91,7 +91,7 @@ void GPUPointEmitter::CreateUpdateShader()
 
 	glTransformFeedbackVaryings(m_update_shader, 4, outputs, GL_INTERLEAVED_ATTRIBS);
 	glLinkProgram(m_update_shader);
-	glDeleteShader(m_update_shader);
+	glDeleteShader(vertex_shader);
 }
 
 void GPUPointEmitter::CreateDrawShader()

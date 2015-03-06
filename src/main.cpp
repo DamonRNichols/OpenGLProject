@@ -31,7 +31,7 @@ void shutdown();
 bool update();
 void draw();
 
-FlyCamera m_camera;
+FlyCamera* m_camera;
 };
 
 

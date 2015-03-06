@@ -39,6 +39,7 @@ void main()
 	vec3 forward = normalize(camera_world[3].xyz - geo_position[0]);
 	vec3 right = cross(camera_world[1].xyz, forward);
 	vec3 up = cross(forward, right);
+
 	mat3 billboard_rot = mat3(right, up, forward);
 
 	//translate the verts

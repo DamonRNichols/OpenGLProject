@@ -70,6 +70,12 @@
     <Filter Include="Source Files\GPUParticles">
       <UniqueIdentifier>{1e968b3d-1cc7-4bf8-b66c-9d051bece150}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SceneManagement">
+      <UniqueIdentifier>{57db42f8-7649-4ece-b44a-9f1643c6fbca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneManagement">
+      <UniqueIdentifier>{9d0ffb78-1ef0-41b1-8273-22f9cce1b242}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -128,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="src\GPUEmitter.cpp">
       <Filter>Source Files\GPUParticles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneManagement.cpp">
+      <Filter>Source Files\SceneManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collisions.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="src\GPUEmitter.h">
       <Filter>Header Files\GPUParticles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneManagement.h">
+      <Filter>Header Files\SceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Collisions.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
