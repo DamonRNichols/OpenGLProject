@@ -13,10 +13,11 @@ public:
 	~AABB() {}
 	void reset();
 	void fit(const std::vector<glm::vec3>& points);
+	void fixCenter(vec3 a_min, vec3 a_max);
 
 	int CheckCollision(vec4 a_plane);
 
-	glm::vec3 m_min, m_max;
+	glm::vec3 m_min, m_max, m_center;
 };
 
 class BoundingSphere 

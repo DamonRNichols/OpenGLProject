@@ -45,12 +45,21 @@ int AABB::CheckCollision(vec4 a_plane)
 	// Get the center of the Box
 	vec3 center = m_min + E;
 	
+	vec4 N = plane;
+	glm::normalize(N);
+	
+	float fRadius = abs(plane.x*E.x) + abs(plane.y*E.y) + abs(plane.z*E.z);
 
+	BoundingSphere sphere;
+	sphere.centre = center;
+	sphere.radius = fRadius;
 
-	//float posSide = (plane.x * v2.x) + (plane.y * v2.y) + (plane.y * v2.y) + distance;
+	return sphere.CheckCollision(plane);
+}
 
-
-	return 0;
+void AABB::fixCenter(vec3 a_min, vec3 a_max)
+{
+	m_center = vec3((a_min.x + a_max.x) / 2, (a_min.y + a_max.y) / 2, (a_min.z + a_max.z) / 2);
 }
 
 void BoundingSphere::fit(const std::vector<glm::vec3>& points) {

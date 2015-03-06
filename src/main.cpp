@@ -1,8 +1,8 @@
-#include "GPUParticles.h"
+#include "SceneManagement.h"
 
 int main()
 {
-	GPUParticles app;
+	SceneManagement app;
 
 	if (app.startup() == false)
 	{

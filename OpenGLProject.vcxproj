@@ -105,6 +105,7 @@
     <ClCompile Include="src\RenderingGeometry.cpp" />
     <ClCompile Include="src\SceneManagement.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
+    <ClCompile Include="src\Threading.cpp" />
     <ClCompile Include="src\tiny_obj_loader.cc" />
     <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>

@@ -25,6 +25,7 @@ public:
 	unsigned int m_programID;
 
 	BoundingSphere* sphere;
+	AABB* cube;
 	vec4 plane;
 };
 

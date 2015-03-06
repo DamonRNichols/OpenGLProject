@@ -76,15 +76,18 @@
     <Filter Include="Source Files\SceneManagement">
       <UniqueIdentifier>{9d0ffb78-1ef0-41b1-8273-22f9cce1b242}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Accessories">
+      <UniqueIdentifier>{0c9e39f9-2bc4-40c8-af7b-c7abcb075fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Accessories">
+      <UniqueIdentifier>{a72aea3c-4eff-4895-99ed-be3b14ce71ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Threading">
+      <UniqueIdentifier>{36796721-3018-4fca-aa61-d2c8e5cc7353}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gl_core_4_4.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gizmos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Application.cpp">
@@ -101,9 +104,6 @@
     </ClCompile>
     <ClCompile Include="src\RenderingGeometry.cpp">
       <Filter>Source Files\RenderingGeometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utility.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Texturing.cpp">
       <Filter>Source Files\Texturing</Filter>
@@ -139,16 +139,22 @@
       <Filter>Source Files\SceneManagement</Filter>
     </ClCompile>
     <ClCompile Include="src\Collisions.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Accessories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gizmos.cpp">
+      <Filter>Source Files\Accessories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gl_core_4_4.c">
+      <Filter>Source Files\Accessories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility.cpp">
+      <Filter>Source Files\Accessories</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Threading.cpp">
+      <Filter>Source Files\Threading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gl_core_4_4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gizmos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -164,16 +170,7 @@
     <ClInclude Include="src\RenderingGeometry.h">
       <Filter>Header Files\RenderingGeometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\glm_header.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Texturing.h">
@@ -209,8 +206,23 @@
     <ClInclude Include="src\SceneManagement.h">
       <Filter>Header Files\SceneManagement</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility.h">
+      <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vertex.h">
+      <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
     <ClInclude Include="src\Collisions.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gl_core_4_4.h">
+      <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glm_header.h">
+      <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gizmos.h">
+      <Filter>Header Files\Accessories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

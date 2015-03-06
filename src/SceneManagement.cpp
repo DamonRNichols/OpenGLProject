@@ -19,8 +19,9 @@ bool SceneManagement::startup()
 	m_camera = new FlyCamera();
 
 	sphere = new BoundingSphere();
-	
 	sphere->radius = 0.5f;
+	cube = new AABB();
+
 	plane = vec4(0, 1, 0, -1);
 
 
@@ -58,10 +59,14 @@ bool SceneManagement::update()
 		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
 	}
 
+	cube->m_center = vec3(0, cosf(m_timer) + 1, 0);
+	Gizmos::addAABBFilled(cube->m_center, vec3(1), vec4(1));
+	cube->m_min = vec3(cube->m_center - 0.5f);
+	cube->m_max = vec3(cube->m_center + 0.5f);
+
 	sphere->centre = vec3(0, cosf(m_timer) + 1, 0);
 
 	Gizmos::addSphere(sphere->centre, sphere->radius, 8, 8, vec4(1, 0, 1, 1));
-
 
 	vec4 planeColour;
 	switch (sphere->CheckCollision(plane))
