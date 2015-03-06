@@ -5,27 +5,6 @@ using std::vector;
 
 #include "glm_header.h"
 
-//struct vec4
-//{
-//	float x, y, z, w;
-//};
-//
-//vec4 normalize(vec4 vector)
-//{
-//	float length = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
-//
-//	if (length == 0)
-//		return vec4{};
-//
-//	vec4 result = vector;
-//
-//	result.x = result.x / length;
-//	result.y = result.y / length;
-//	result.z = result.z / length;
-//
-//	return result;
-//}
-
 void print(int i)
 {
 	static std::mutex myMutex;
