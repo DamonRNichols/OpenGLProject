@@ -1,8 +1,8 @@
-#include "SceneManagement.h"
+#include "RenderTargets.h"
 
 int main()
 {
-	SceneManagement app;
+	RenderTarget app;
 
 	if (app.startup() == false)
 	{

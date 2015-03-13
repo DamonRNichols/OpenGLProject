@@ -18,6 +18,30 @@ void AABB::fit(const std::vector<glm::vec3>& points)
 	}
 }
 
+bool AABB::OnPositivePlaneSide(vec4 plane)
+{
+	vec3 plane_testA, plane_testB;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		if (plane[i] >= 0)
+		{
+			plane_testA[i] = m_min[i];
+			plane_testB[i] = m_max[i];
+		}
+		else
+		{
+			plane_testA[i] = m_max[i];
+			plane_testB[i] = m_min[i];
+		}
+	}
+
+	float dA = glm::dot(vec3(plane), plane_testA) + plane.w;
+	float dB = glm::dot(vec3(plane), plane_testB) + plane.w;
+
+	return (dA >= 0 || dB >= 0);
+}
+
 int AABB::CheckCollision(vec4 a_plane)
 {
 	vec3 v1, v2;
@@ -26,6 +50,7 @@ int AABB::CheckCollision(vec4 a_plane)
 
 	glm::normalize(plane);
 
+	//ajust the x & y min and max according to the normal
 	for (int i = 0; i < 3; ++i)
 	{
 		if (plane[i] >= 0)

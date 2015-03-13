@@ -22,7 +22,6 @@ public:
 
 	FlyCamera* m_camera;
 	float m_timer;
-	unsigned int m_programID;
 
 	BoundingSphere* sphere;
 	AABB* cube;

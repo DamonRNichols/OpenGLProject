@@ -15,6 +15,8 @@ public:
 	void fit(const std::vector<glm::vec3>& points);
 	void fixCenter(vec3 a_min, vec3 a_max);
 
+	bool OnPositivePlaneSide(vec4 plane);
+
 	int CheckCollision(vec4 a_plane);
 
 	glm::vec3 m_min, m_max, m_center;

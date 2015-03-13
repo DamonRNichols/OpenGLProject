@@ -4,6 +4,24 @@
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
 
+void RenderPlane(vec4 plane)
+{
+	vec3 tangent = glm::cross(plane.xyz(), vec3(0, 1, 0));
+	vec3 bitangent = glm::cross(plane.xyz(), tangent);
+
+	vec3 p = plane.xyz() * plane.w;
+
+	vec3 v0 = p + tangent + bitangent;
+	vec3 v1 = p + tangent - bitangent;
+	vec3 v2 = p - tangent - bitangent;
+	vec3 v3 = p - tangent + bitangent;
+
+	Gizmos::addTri(v0, v1, v2, vec4(1, 1, 0, 1));
+	Gizmos::addTri(v0, v2, v3, vec4(1, 1, 0, 1));
+
+	Gizmos::addLine(p, p + plane.xyz() * 20, vec4(1, 1, 0, 1));
+}
+
 
 bool SceneManagement::startup()
 {
@@ -64,12 +82,12 @@ bool SceneManagement::update()
 	cube->m_min = vec3(cube->m_center - 0.5f);
 	cube->m_max = vec3(cube->m_center + 0.5f);
 
-	sphere->centre = vec3(0, cosf(m_timer) + 1, 0);
+	//sphere->centre = vec3(0, cosf(m_timer) + 1, 0);
 
-	Gizmos::addSphere(sphere->centre, sphere->radius, 8, 8, vec4(1, 0, 1, 1));
+	//Gizmos::addSphere(sphere->centre, sphere->radius, 8, 8, vec4(1, 0, 1, 1));
 
 	vec4 planeColour;
-	switch (sphere->CheckCollision(plane))
+	switch (cube->CheckCollision(plane))
 	{
 	case 1:
 		planeColour = vec4(0, 1, 0, 1);
@@ -92,7 +110,7 @@ bool SceneManagement::update()
 	vec4 planes[6];
 	getFrustumPlanes(m_camera->m_view_proj, planes);
 
-	for (int i = 0; i < 6; ++i)
+	/*for (int i = 0; i < 6; ++i)
 	{
 		float d = glm::dot(vec3(planes[i]), sphere->centre) + planes[i].w;
 		if (d < -sphere->radius) 
@@ -108,7 +126,7 @@ bool SceneManagement::update()
 		{
 			printf("Front, fully visible so render it!\n");
 		}
-	}
+	}*/
 
 
 	return true;
@@ -119,10 +137,7 @@ void SceneManagement::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
-	glUseProgram(m_programID);
 
-	int view_proj_uniform = glGetUniformLocation(m_programID, "projection_view");
-	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->m_view_proj);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

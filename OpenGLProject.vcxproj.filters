@@ -85,6 +85,18 @@
     <Filter Include="Source Files\Threading">
       <UniqueIdentifier>{36796721-3018-4fca-aa61-d2c8e5cc7353}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RenderTargets">
+      <UniqueIdentifier>{05411974-355c-455b-bc5b-ffd7479743ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RenderTargets">
+      <UniqueIdentifier>{4979da7b-41ec-4aeb-a713-d291109b7774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PostProcess">
+      <UniqueIdentifier>{0501386a-fb33-41e0-a8cc-0a66abb9c09b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PostProcess">
+      <UniqueIdentifier>{c84d927a-a3c4-47d6-b47c-d2ff8b37596f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -152,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="src\Threading.cpp">
       <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderTargets.cpp">
+      <Filter>Source Files\RenderTargets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PostProcess.cpp">
+      <Filter>Source Files\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="src\Gizmos.h">
       <Filter>Header Files\Accessories</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderTargets.h">
+      <Filter>Header Files\RenderTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PostProcess.h">
+      <Filter>Header Files\PostProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
