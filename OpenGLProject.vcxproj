@@ -92,6 +92,7 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CameraAndProjections.cpp" />
     <ClCompile Include="src\Collisions.cpp" />
+    <ClCompile Include="src\DeferredRendering.cpp" />
     <ClCompile Include="src\Emitter.cpp" />
     <ClCompile Include="src\Gizmos.cpp" />
     <ClCompile Include="src\gl_core_4_4.c" />
@@ -106,6 +107,7 @@
     <ClCompile Include="src\RenderingGeometry.cpp" />
     <ClCompile Include="src\RenderTargets.cpp" />
     <ClCompile Include="src\SceneManagement.cpp" />
+    <ClCompile Include="src\Shadows.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
     <ClCompile Include="src\Threading.cpp" />
     <ClCompile Include="src\tiny_obj_loader.cc" />
@@ -118,6 +120,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CameraAndProjections.h" />
     <ClInclude Include="src\Collisions.h" />
+    <ClInclude Include="src\DeferredRendering.h" />
     <ClInclude Include="src\Emitter.h" />
     <ClInclude Include="src\Gizmos.h" />
     <ClInclude Include="src\glm_header.h" />
@@ -132,6 +135,7 @@
     <ClInclude Include="src\RenderingGeometry.h" />
     <ClInclude Include="src\RenderTargets.h" />
     <ClInclude Include="src\SceneManagement.h" />
+    <ClInclude Include="src\Shadows.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texturing.h" />
     <ClInclude Include="src\tiny_obj_loader.h" />
@@ -139,7 +143,14 @@
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\shaders\composite_fragment.glsl" />
+    <None Include="data\shaders\composite_vertex.glsl" />
+    <None Include="data\shaders\diffuse_shadowed_fragment.glsl" />
+    <None Include="data\shaders\diffuse_shadowed_vertex.glsl" />
+    <None Include="data\shaders\directional_light_fragment.glsl" />
     <None Include="data\shaders\frag_shader.glsl" />
+    <None Include="data\shaders\gbuffer_fragment.glsl" />
+    <None Include="data\shaders\gbuffer_vertex.glsl" />
     <None Include="data\shaders\gpu_particle_frag.glsl" />
     <None Include="data\shaders\gpu_particle_geom.glsl" />
     <None Include="data\shaders\gpu_particle_vert.glsl" />
@@ -150,6 +161,10 @@
     <None Include="data\shaders\particle_fragment.glsl" />
     <None Include="data\shaders\particle_update_vert.glsl" />
     <None Include="data\shaders\particle_vertex.glsl" />
+    <None Include="data\shaders\post_fragment.glsl" />
+    <None Include="data\shaders\post_vertex.glsl" />
+    <None Include="data\shaders\shadowmap_fragment.glsl" />
+    <None Include="data\shaders\shadowmap_vertex.glsl" />
     <None Include="data\shaders\skinned_fragment.glsl" />
     <None Include="data\shaders\skinned_vertex.glsl" />
     <None Include="data\shaders\textured_fragment.glsl" />

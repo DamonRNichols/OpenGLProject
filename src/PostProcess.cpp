@@ -5,6 +5,8 @@
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
 
+#include "Utility.h"
+
 bool PostProcess::startup()
 {
 	if (Application::startup() == false)
@@ -17,6 +19,15 @@ bool PostProcess::startup()
 	Gizmos::create();
 
 	m_camera = new FlyCamera();
+
+	//create the framebuffer
+	GenerateFramebuffer();
+
+	//create the quad mesh
+	GenerateQuad();
+
+	//load the post effect shader
+	LoadShaders("./shaders/post_vertex.glsl", 0, "./shaders/post_fragment.glsl", &m_programID);
 
 	return true;
 }
@@ -52,19 +63,46 @@ bool PostProcess::update()
 		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
 	}
 
+	Gizmos::addSphere(vec3(0, 0, 0), 1, 10, 10, vec4(1, 1, 0, 1));
+	Gizmos::addSphere(vec3(2, 2, 1), 1, 10, 10, vec4(0, 1, 1, 1));
+	Gizmos::addSphere(vec3(-1, 2, -2), 1, 10, 10, vec4(1, 0, 1, 1));
+
 
 	return true;
 }
 
 void PostProcess::draw()
 {
+	//bind framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+	glViewport(0, 0, 1280, 720);
+
+	//clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//render everything like normal, but to the fbo_texture
 	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
+
+	//bind backbuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//bind post effect shader
 	glUseProgram(m_programID);
 
-	int view_proj_uniform = glGetUniformLocation(m_programID, "projection_view");
-	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->m_view_proj);
+	//bind the fbo_texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_fbo_texture);
+	int tex_location = glGetUniformLocation(m_programID, "input_texture");
+	glUniform1i(tex_location, 0);
+	float deltaT = glGetUniformLocation(m_programID, "time");
+	glUniform1f(deltaT, (float)glfwGetTime());
+
+	//render our quad with the texture on in
+	glBindVertexArray(m_quad.m_VAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
@@ -77,9 +115,9 @@ void PostProcess::GenerateFramebuffer()
 
 	glGenTextures(1, &m_fbo_texture);
 	glBindTexture(GL_TEXTURE_2D, m_fbo_texture);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, 1280, 720);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, 1280, 720);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_fbo_texture, 0);
 
@@ -100,16 +138,16 @@ void PostProcess::GenerateFramebuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void generateScreenSpaceQuad()
+void PostProcess::GenerateQuad()
 {
-	vec2 half_texel = 1.0f / vec2(1280, 720) * 0.5f;
+	vec2 half_texel = 1.0f / vec2(1280, 720);
 
 	float vertex_data[]
 	{
-		-1,-1,0,1,	half_texel.x, half_texel.t,
-		1,-1,0,1,	half_texel.x, half_texel.t,
-		1,1,0,1,	half_texel.x, half_texel.t,
-		-1,1,0,1,	half_texel.x, half_texel.t,
+		-1,-1,0,1,		half_texel.x, half_texel.y,
+		-1, 1,0,1,		half_texel.x, 1.0f  -half_texel.y,
+		1,  1, 0, 1,	1.0f - half_texel.x, 1.0f - half_texel.y,
+		1, -1, 0, 1,	1.0f - half_texel.x, half_texel.y,
 	};
 
 	unsigned int index_data[] =
@@ -118,10 +156,24 @@ void generateScreenSpaceQuad()
 	};
 
 	glGenVertexArrays(1, &m_quad.m_VAO);
+	glBindVertexArray(m_quad.m_VAO);
 
-	glGenBuffers(1,&m_quad.VBO);
-	glGenBuffers(1,&m_quad.IBO);
+	glGenBuffers(1, &m_quad.m_VBO);
+	glGenBuffers(1, &m_quad.m_IBO);
 
-	glBindVertexArray()
+	glBindBuffer(GL_ARRAY_BUFFER, m_quad.m_VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_quad.m_IBO);
 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index_data), index_data, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0); //position
+	glEnableVertexAttribArray(1); //texcoord
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float)* 6, 0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float)* 6, (void*)(sizeof(float)* 4));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

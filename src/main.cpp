@@ -1,8 +1,8 @@
-#include "RenderTargets.h"
+#include "DeferredRendering.h"
 
 int main()
 {
-	RenderTarget app;
+	DeferredRendering app;
 
 	if (app.startup() == false)
 	{
@@ -23,7 +23,10 @@ int main()
 
 USE THIS FOR ALL FUTURE CLASS BUILDING
 
-class _?????_ : public Application
+#include "Application.h"
+#include "Camera.h"
+
+class REPLACE : public Application
 {
 public:
 bool startup();
@@ -32,6 +35,9 @@ bool update();
 void draw();
 
 FlyCamera* m_camera;
+float m_timer;
+unsigned int m_programID;
+
 };
 
 
@@ -40,7 +46,7 @@ FlyCamera* m_camera;
 #include "GLFW/glfw3.h"
 #include "Gizmos.h"
 
-bool _?????_::startup()
+bool REPLACE::startup()
 {
 	if (Application::startup() == false)
 	{
@@ -56,14 +62,14 @@ bool _?????_::startup()
 	return true;
 }
 
-void _?????_::shutdown()
+void REPLACE::shutdown()
 {
 	Gizmos::destroy();
 
 	Application::shutdown();
 }
 
-bool _?????_::update()
+bool REPLACE::update()
 {
 	if (Application::update() == false)
 	{
@@ -91,7 +97,7 @@ bool _?????_::update()
 	return true;
 }
 
-void _?????_::draw()
+void REPLACE::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

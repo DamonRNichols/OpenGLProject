@@ -97,6 +97,18 @@
     <Filter Include="Source Files\PostProcess">
       <UniqueIdentifier>{c84d927a-a3c4-47d6-b47c-d2ff8b37596f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Shadows">
+      <UniqueIdentifier>{56ea1e50-a7c6-46dc-932c-e295445003f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shadows">
+      <UniqueIdentifier>{8fc5645c-b17a-40ea-abb0-1dd18c538096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DeferredRendering">
+      <UniqueIdentifier>{40095c11-683e-4f91-9181-300ff6dbc187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DeferredRendering">
+      <UniqueIdentifier>{a8badeaa-3323-4f20-a113-1be0e094f384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -170,6 +182,12 @@
     </ClCompile>
     <ClCompile Include="src\PostProcess.cpp">
       <Filter>Source Files\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shadows.cpp">
+      <Filter>Source Files\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeferredRendering.cpp">
+      <Filter>Source Files\DeferredRendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +266,12 @@
     <ClInclude Include="src\PostProcess.h">
       <Filter>Header Files\PostProcess</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shadows.h">
+      <Filter>Header Files\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DeferredRendering.h">
+      <Filter>Header Files\DeferredRendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -296,6 +320,39 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\particle_update_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\post_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\post_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\shadowmap_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\shadowmap_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\diffuse_shadowed_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\diffuse_shadowed_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\gbuffer_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\gbuffer_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\composite_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\composite_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\directional_light_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
