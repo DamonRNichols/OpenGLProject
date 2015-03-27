@@ -5,6 +5,13 @@
 #include "Camera.h"
 #include "Vertex.h"
 
+struct PointLight
+{
+	vec3 position;
+	vec3 diffuse;
+	float radius;
+};
+
 class DeferredRendering : public Application
 {
 public:
@@ -16,11 +23,20 @@ public:
 	void buildMeshes();
 	void buildGbuffer();
 	void buildLightBuffer();
+	void buildCube();
 	void buildQuad();
 
 	void renderDirectionalLight(vec3 light_dir, vec3 light_color);
+	void renderPointLight(vec3 position, float radius, vec3 diffuse);
+	void renderPointLights(PointLight lights[]);
+
+	vec3 colors[6];
+
+	static const int MAX_POINT_LIGHTS = 20;
+	PointLight PointLights[MAX_POINT_LIGHTS];
 
 	//load up a mesh
+	OpenGLData m_light_cube;
 	OpenGLData m_bunny;
 	OpenGLData m_screenspace_quad;
 

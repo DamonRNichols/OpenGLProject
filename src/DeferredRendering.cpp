@@ -7,6 +7,8 @@
 #include "tiny_obj_loader.h"
 #include "Utility.h"
 
+
+
 bool DeferredRendering::startup()
 {
 	if (Application::startup() == false)
@@ -23,15 +25,28 @@ bool DeferredRendering::startup()
 	unsigned int m_programID;
 
 	buildMeshes();
+	buildQuad();
+	buildCube();
+
 	buildGbuffer();
 	buildLightBuffer();
-	buildQuad();
 
 	LoadShaders("./shaders/gbuffer_vertex.glsl", 0, "./shaders/gbuffer_fragment.glsl", &m_gbuffer_program);
 
 	LoadShaders("./shaders/composite_vertex.glsl", 0, "./shaders/composite_fragment.glsl", &m_comp_light_program);
 
 	LoadShaders("./shaders/composite_vertex.glsl", 0, "./shaders/directional_light_fragment.glsl", &m_dir_light_program);
+
+	LoadShaders("./shaders/point_light_vertex.glsl", 0, "./shaders/point_light_fragment.glsl", &m_point_light_program);
+
+	//glEnable(GL_CULL_FACE);
+
+	for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
+	{
+		PointLights[i].position = vec3(cos(i) * 10, sin(i* 10) * cos(i * 5) * 5, sin(i)*10);
+		PointLights[i].diffuse = vec3(cos(i * (255.0f / MAX_POINT_LIGHTS)), sin(i), -sin(i * 10));
+		PointLights[i].radius = 8.0f;
+	}
 
 	return true;
 }
@@ -67,6 +82,11 @@ bool DeferredRendering::update()
 		Gizmos::addLine(vec3(-10, 0, -10 + i), vec3(10, 0, -10 + i), i == 10 ? white : black);
 	}
 
+	for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
+	{
+		Gizmos::addAABB(PointLights[i].position, vec3(0.3f), vec4(PointLights[i].diffuse, 1));
+	}
+	
 
 	return true;
 }
@@ -122,9 +142,57 @@ void DeferredRendering::draw()
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, m_normals_texture);
 
-	renderDirectionalLight(vec3(1, 0, 0), vec3(1, 1, 0));
-	renderDirectionalLight(vec3(0, 1, 0), vec3(0, 1, 1));
-	renderDirectionalLight(vec3(0, 0, 1), vec3(1, 0, 1));
+
+
+	//renderDirectionalLight(vec3(0, 1, 0), vec3(1, 1, 1));
+	//renderDirectionalLight(vec3(0, 0, 1), vec3(1, 1, 1));
+	//renderDirectionalLight(vec3(1, 0, 0), vec3(1, 1, 1));
+
+	//point lights
+	glUseProgram(m_point_light_program);
+
+	view_proj_uniform = glGetUniformLocation(m_point_light_program, "proj_view");
+
+	position_tex_uniform = glGetUniformLocation(m_point_light_program, "position_texture");
+
+	normals_tex_uniform = glGetUniformLocation(m_point_light_program, "normal_texture");
+
+	glUniformMatrix4fv(view_proj_uniform, 1, GL_FALSE, (float*)&m_camera->m_view_proj);
+
+	glUniform1i(position_tex_uniform, 0);
+	glUniform1i(normals_tex_uniform, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_position_texture);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_normals_texture);
+
+	//draw the point lights
+
+	vec3 colors[6] =
+	{
+		vec3(1, 0, 0), //red
+		vec3(1, 1, 0), //yellow
+		vec3(1, 0, 1), //magenta
+		vec3(0, 1, 0), //green
+		vec3(0, 1, 1), //cyan
+		vec3(0, 0, 1)  //blue
+	};
+
+	//int ringNum = 6;
+	//
+	//for (int i = 0; i < ringNum; ++i)
+	//{
+	//	vec3 position = vec3(sin(i * 5), cos(i * 5) * sin(i * 5), sin(i * 5));
+	//	renderPointLight(position, 1, colors[i]);
+	//}
+
+	renderPointLights(PointLights);
+
+		
+	//renderPointLight(vec3(0, 8, 0), 5, vec3(1, 1, 0));
+	//renderPointLight(vec3(5, 2, 2), 5, vec3(0, 1, 0));
+	//renderPointLight(vec3(-2, 5, -2), 5, vec3(0, 0, 1));
 
 	glDisable(GL_BLEND);
 
@@ -154,7 +222,7 @@ void DeferredRendering::draw()
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 
-	//Gizmos::draw(m_camera->m_proj, m_camera->m_view);
+	Gizmos::draw(m_camera->m_proj, m_camera->m_view);
 	
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
@@ -177,6 +245,44 @@ void DeferredRendering::renderDirectionalLight(vec3 light_dir, vec3 light_color)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void DeferredRendering::renderPointLight(vec3 position, float radius, vec3 diffuse)
+{
+	vec4 view_space_pos = m_camera->m_view * vec4(position, 1);
+
+	int pos_uniform = glGetUniformLocation(m_point_light_program, "light_position");
+	int view_pos_uniform = glGetUniformLocation(m_point_light_program, "light_view_position");
+	int light_diffuse_uniform = glGetUniformLocation(m_point_light_program, "light_diffuse");
+	int light_radius_uniform = glGetUniformLocation(m_point_light_program, "light_radius");
+
+	glUniform3fv(pos_uniform, 1, (float*)&position);
+	glUniform3fv(view_pos_uniform, 1, (float*)&view_space_pos);
+	glUniform3fv(light_diffuse_uniform, 1, (float*)&diffuse);
+	glUniform1f(light_radius_uniform, radius);
+
+	glBindVertexArray(m_light_cube.m_VAO);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void DeferredRendering::renderPointLights(PointLight lights[])
+{
+	for (int i = 0; i < MAX_POINT_LIGHTS; i++)
+	{
+		vec4 view_space_pos = m_camera->m_view * vec4(lights[i].position, 1);
+
+		int pos_uniform = glGetUniformLocation(m_point_light_program, "light_position");
+		int view_pos_uniform = glGetUniformLocation(m_point_light_program, "light_view_position");
+		int light_diffuse_uniform = glGetUniformLocation(m_point_light_program, "light_diffuse");
+		int light_radius_uniform = glGetUniformLocation(m_point_light_program, "light_radius");
+
+		glUniform3fv(pos_uniform, 1, (float*)&lights[i].position);
+		glUniform3fv(view_pos_uniform, 1, (float*)&view_space_pos);
+		glUniform3fv(light_diffuse_uniform, 1, (float*)&lights[i].diffuse);
+		glUniform1f(light_radius_uniform, lights[i].radius);
+
+		glBindVertexArray(m_light_cube.m_VAO);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	}
+}
 
 void DeferredRendering::buildMeshes()
 {
@@ -236,7 +342,7 @@ void DeferredRendering::buildGbuffer()
 
 	glGenTextures(1, &m_position_texture);
 	glBindTexture(GL_TEXTURE_2D, m_position_texture);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, 1280, 720);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB32F, 1280, 720);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -315,7 +421,8 @@ void DeferredRendering::buildQuad()
 
 	unsigned int index_data[] =
 	{
-		0, 1, 2, 0, 2, 3
+		0, 1, 2, 
+		0, 2, 3
 	};
 
 	glGenVertexArrays(1, &m_screenspace_quad.m_VAO);
@@ -335,6 +442,59 @@ void DeferredRendering::buildQuad()
 
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float)* 6, 0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float)* 6, (void*)(sizeof(float)* 4));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void DeferredRendering::buildCube()
+{
+	float vertex_data[]
+	{
+		-1, -1, 1, 1,
+		1, -1, 1, 1,
+		1, -1, -1, 1,
+		-1, -1, -1, 1,
+
+		-1, 1, 1, 1,
+		1, 1, 1, 1,
+		1, 1, -1, 1,
+		-1, 1, -1, 1
+	};
+
+	unsigned int index_data[] =
+	{
+		4, 5, 0,
+		5, 1, 0,
+		5, 6, 1,
+		6, 2, 1,
+		6, 7, 2,
+		7, 3, 2,
+		7, 4, 3,
+		4, 0, 3,
+		7, 6, 4,
+		6, 5, 4,
+		0, 1, 3,
+		1, 2, 3
+
+	};
+
+	glGenVertexArrays(1, &m_light_cube.m_VAO);
+	glBindVertexArray(m_light_cube.m_VAO);
+
+	glGenBuffers(1, &m_light_cube.m_VBO);
+	glGenBuffers(1, &m_light_cube.m_IBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_light_cube.m_VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_light_cube.m_IBO);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index_data), index_data, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0); //position
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float)* 4, 0);
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

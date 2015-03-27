@@ -109,6 +109,12 @@
     <Filter Include="Header Files\DeferredRendering">
       <UniqueIdentifier>{a8badeaa-3323-4f20-a113-1be0e094f384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PreceduralGeneration">
+      <UniqueIdentifier>{efdaa6fd-7b3a-456f-978a-3dfeffb137b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PreceduralGeneration">
+      <UniqueIdentifier>{0e1c0e90-54f5-4c0e-bfda-5d1cf674879f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -188,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="src\DeferredRendering.cpp">
       <Filter>Source Files\DeferredRendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PreceduralGeneration.cpp">
+      <Filter>Source Files\PreceduralGeneration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +281,9 @@
     <ClInclude Include="src\DeferredRendering.h">
       <Filter>Header Files\DeferredRendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\PreceduralGeneration.h">
+      <Filter>Header Files\PreceduralGeneration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shaders\frag_shader.glsl">
@@ -353,6 +365,18 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\directional_light_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\point_light_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\point_light_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\perlin_vertex.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\perlin_fragment.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
