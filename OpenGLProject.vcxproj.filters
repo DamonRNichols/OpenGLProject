@@ -115,6 +115,12 @@
     <Filter Include="Source Files\PreceduralGeneration">
       <UniqueIdentifier>{0e1c0e90-54f5-4c0e-bfda-5d1cf674879f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AdvancedNavigation">
+      <UniqueIdentifier>{d4e1617a-2101-4b3b-86dc-5629b23c5db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AdvancedNavigation">
+      <UniqueIdentifier>{3ad0871c-dd29-45c3-9991-437b214f561a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -197,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="src\PreceduralGeneration.cpp">
       <Filter>Source Files\PreceduralGeneration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AdvancedNavigation.cpp">
+      <Filter>Source Files\AdvancedNavigation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="src\PreceduralGeneration.h">
       <Filter>Header Files\PreceduralGeneration</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AdvancedNavigation.h">
+      <Filter>Header Files\AdvancedNavigation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +389,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="data\shaders\perlin_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\navmesh_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="data\shaders\navmesh_vertex.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

@@ -23,7 +23,7 @@ bool PreceduralGeneration::startup()
 	LoadShaders("./shaders/perlin_vertex.glsl", 0, "./shaders/perlin_fragment.glsl", &m_programID);
 
 	buildGrid(vec2(10, 10), glm::ivec2(64, 64));
-	buildPerlinTexture(glm::ivec2(64,64), 6, 0.3f);
+	buildPerlinTexture(glm::ivec2(64,64), 8, 0.3f);
 
 	return true;
 }
@@ -167,7 +167,7 @@ void PreceduralGeneration::buildGrid(vec2 real_dims, glm::ivec2 dims)
 void PreceduralGeneration::buildPerlinTexture(glm::ivec2 dims, int octaves, float persistence)
 {
 	//set scale
-	float scale = (1.0f / dims.x) * 3.0f;
+	float scale = (1.0f / dims.x) * 5.0f;
 
 	//allocate memory for perlin data
 	m_perlin_data = new float[dims.x * dims.y];

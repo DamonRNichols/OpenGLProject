@@ -1,8 +1,8 @@
-#include "PreceduralGeneration.h"
+#include "AdvancedNavigation.h"
 
 int main()
 {
-	PreceduralGeneration app;
+	AdvancedNavigation app;
 
 	if (app.startup() == false)
 	{
