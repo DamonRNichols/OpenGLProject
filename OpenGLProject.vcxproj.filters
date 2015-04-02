@@ -397,5 +397,8 @@
     <None Include="data\shaders\navmesh_vertex.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="data\shaders\advanced_lighting_fragment.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

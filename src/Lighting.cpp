@@ -19,12 +19,12 @@ bool Lighting::startup()
 
 	m_camera = new FlyCamera();
 
-	LoadShaders("./shaders/lighting_vertex.glsl",0, "./shaders/lighting_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/lighting_vertex.glsl", 0, "./shaders/advanced_lighting_fragment.glsl", &m_programID);
 
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
-	std::string err = tinyobj::LoadObj(shapes, materials, "./models/dragon.obj");
+	std::string err = tinyobj::LoadObj(shapes, materials, "./models/bunny.obj");
 
 	if (err.size() != 0)
 	{
@@ -34,9 +34,9 @@ bool Lighting::startup()
 	createOpenGLBuffers(shapes);
 
 	m_ambient_light = vec3(0.1f);
-	m_light_dir = vec3(0, -1, 0);
+	m_light_dir = vec3(0, 1, 0);
 	m_light_color = vec3(1, 1, 1);
-	m_material_color = vec3(1,1,1);
+	m_material_color = vec3(0.73f,0.69f,0.3f);
 	m_specular_power = 15;
 
 	return true;
@@ -190,5 +190,5 @@ void Lighting::reloadShader()
 {
 	glDeleteProgram(m_programID);
 
-	LoadShaders("./shaders/lighting_vertex.glsl",0, "./shaders/lighting_fragment.glsl", &m_programID);
+	LoadShaders("./shaders/lighting_vertex.glsl",0, "./shaders/advanced_lighting_fragment.glsl", &m_programID);
 }

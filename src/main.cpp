@@ -1,8 +1,8 @@
-#include "AdvancedNavigation.h"
+#include "Lighting.h"
 
 int main()
 {
-	AdvancedNavigation app;
+	Lighting app;
 
 	if (app.startup() == false)
 	{

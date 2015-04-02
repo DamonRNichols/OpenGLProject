@@ -147,6 +147,7 @@
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\shaders\advanced_lighting_fragment.glsl" />
     <None Include="data\shaders\composite_fragment.glsl" />
     <None Include="data\shaders\composite_vertex.glsl" />
     <None Include="data\shaders\diffuse_shadowed_fragment.glsl" />
