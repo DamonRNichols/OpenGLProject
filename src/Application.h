@@ -3,6 +3,12 @@
 
 #include "glm_header.h"
 
+#include "AntTweakBar.h"
+#include "Utility.h" //includes Vertex.h
+#include "Gizmos.h"
+
+class CameraAndProjections;
+
 struct GLFWwindow;
 
 class Application
@@ -17,7 +23,10 @@ public:
 	virtual void draw();
 
 	GLFWwindow* m_window;
+
+
+
 };
 
 
-#endif _APPLICATION_H_
+#endif // !_APPLICATION_H_

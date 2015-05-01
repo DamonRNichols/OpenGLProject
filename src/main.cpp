@@ -1,8 +1,8 @@
-#include "Lighting.h"
+#include "GameTreeSearch.h"
 
 int main()
 {
-	Lighting app;
+	GameTreeSearch app;
 
 	if (app.startup() == false)
 	{

@@ -16,6 +16,8 @@ public:
 	mat4 m_proj;
 	mat4 m_view_proj;
 
+	vec3 pickAgainstPlane(float x, float y, vec4 plane);
+
 	void setPerspective(float FoV, float aspectRatio, float near, float far);
 	void setLookAt(vec3 pos, vec3 target, vec3 up);
 	void setPosition(vec3 pos);

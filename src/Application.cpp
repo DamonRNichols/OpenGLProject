@@ -43,7 +43,7 @@ void Application::shutdown()
 }
 
 bool Application::update()
-{ 
+{
 	if (glfwWindowShouldClose(m_window))
 	{
 		return false;
@@ -54,7 +54,7 @@ bool Application::update()
 		return false;
 	}
 
-	return true; 
+	return true;
 }
 
 void Application::draw()
